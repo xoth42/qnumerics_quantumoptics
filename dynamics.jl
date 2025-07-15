@@ -76,7 +76,7 @@ Hlazy = H₀ + TimeDependentSum(t->4*sin(40ω*t), p)
 
 Hlazy = H₀ + TimeDependentSum(t->40*sin(4000ω*t), p)
 ts = 0:1.0:10
-_, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy;)
+_, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy;);
 
 # the result should be normalized
 
@@ -91,20 +91,24 @@ using OrdinaryDiffEqVerner: Vern8
 #
 
 @time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy;);
+@time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy;);
 norm(ψs[end])
 
 #
 
+@time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Tsit5());
 @time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Tsit5());
 norm(ψs[end])
 
 #
 
 @time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Vern8());
+@time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Vern8());
 norm(ψs[end])
 
 #
 
+@time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Vern8(), reltol=0, abstol=1e-12);
 @time _, ψs = timeevolution.schroedinger_dynamic(ts,ψ₀,Hlazy; alg=Vern8(), reltol=0, abstol=1e-12);
 norm(ψs[end])
 
